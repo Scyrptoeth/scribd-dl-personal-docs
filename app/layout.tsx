@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "scribd-dl-personal | Dokumentasi",
-  description: "Dokumentasi lengkap untuk scribd-dl-personal — tool pribadi untuk mengunduh dokumen dari Scribd dan Slideshare dengan dukungan profil login.",
+  title: "Unduh Dokumen | Scribd Downloader",
+  description: "Unduh dokumen dari Scribd dan Slideshare dengan mudah. Cukup tempel link, tekan unduh, dan file langsung tersimpan di komputer kamu.",
   icons: {
     icon: "/favicon.ico",
   },
