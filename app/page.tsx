@@ -9,11 +9,12 @@ export default function Landing() {
         <h1 className="text-5xl font-semibold tracking-tighter mb-4">
           scribd-dl-personal
         </h1>
-        <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
-          Tool pribadi yang tangguh untuk mengunduh dokumen dari Scribd &amp; Slideshare.
+        <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-lg mx-auto">
+          Pendamping web untuk tool CLI pribadi yang kuat.<br />
+          Hasilkan perintah dan konfigurasi optimal dalam hitungan detik.
         </p>
-        <p className="mt-2 text-sm text-zinc-500">
-          Tidak perlu install Chrome extension. Jalankan langsung dari komputer Anda.
+        <p className="mt-3 text-sm text-zinc-500">
+          Semua proses download tetap berjalan di komputer kamu menggunakan profil Chrome.
         </p>
       </div>
 
@@ -21,11 +22,11 @@ export default function Landing() {
       <div className="max-w-3xl mx-auto px-6 pb-16">
         <div className="text-center mb-8">
           <div className="inline-block px-4 py-1 rounded-full bg-zinc-200 dark:bg-zinc-800 text-xs font-medium tracking-wider mb-3">
-            TIDAK PERLU INSTALL APAPUN DI BROWSER
+            PENGALAMAN WEBSITE + KEKUATAN CLI
           </div>
-          <h2 className="text-2xl font-semibold">Generator Perintah</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mt-2 text-sm">
-            Isi URL dokumen di bawah ini. Tool akan menghasilkan perintah yang siap Anda copy-paste ke Terminal.
+          <h2 className="text-2xl font-semibold tracking-tight">Generator Perintah &amp; Konfigurasi</h2>
+          <p className="text-zinc-600 dark:text-zinc-400 mt-2 max-w-md mx-auto">
+            Isi informasi di bawah. Website akan menghasilkan perintah Terminal + potongan konfigurasi yang optimal untuk kamu.
           </p>
         </div>
         <CommandGenerator />
