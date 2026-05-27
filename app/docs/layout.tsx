@@ -24,9 +24,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         <div className="sticky top-0 p-6">
           <div className="mb-8">
             <Link href="/docs" className="font-semibold text-xl tracking-tight">
-              scribd-dl-personal
+              Panduan Unduh Dokumen
             </Link>
-            <p className="text-xs text-zinc-500 mt-1">Versi Pribadi</p>
+            <p className="text-xs text-zinc-500 mt-1">Untuk keperluan pribadi</p>
           </div>
 
           <nav className="space-y-1 text-sm">
