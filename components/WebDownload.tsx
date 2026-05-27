@@ -135,56 +135,57 @@ export default function WebDownload() {
     );
   }
 
-  // Setup guide view (shown when user tries to download but has no local desktop app)
+  // Setup guide view - honest guidance for beginners
   if (showSetupGuide) {
     return (
       <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold tracking-tight mb-3">
-            Siap Mengunduh
+            Link Sudah Siap
           </h1>
           <p className="text-lg text-zinc-600">
-            Link sudah diterima. Hanya satu langkah lagi.
+            Saat ini cara paling mudah dan andal untuk Anda adalah menggunakan versi yang sudah matang.
           </p>
         </div>
 
         <div className="rounded-3xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
           <div className="mb-6">
-            <div className="mb-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">LANGKAH MUDAH</div>
-            <h2 className="text-2xl font-semibold tracking-tight">Instal aplikasi desktop sekali saja</h2>
+            <div className="mb-2 text-sm font-medium text-amber-600 dark:text-amber-400">UNTUK PENGGUNA AWAM (SAAT INI)</div>
+            <h2 className="text-2xl font-semibold tracking-tight">Gunakan cara yang paling sederhana dulu</h2>
           </div>
 
-          <div className="space-y-6 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
-            <div>
-              <span className="font-medium text-zinc-900 dark:text-white">1.</span> Unduh aplikasi desktop Scribd Downloader (gratis, hanya untuk penggunaan pribadi).
-            </div>
-            <div>
-              <span className="font-medium text-zinc-900 dark:text-white">2.</span> Jalankan aplikasi tersebut di komputer Anda.
-            </div>
-            <div>
-              <span className="font-medium text-zinc-900 dark:text-white">3.</span> Kembali ke halaman ini, tempel link lagi, lalu klik Unduh Sekarang.
+          <div className="space-y-5 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p>
+              Aplikasi desktop yang super mudah (tanpa Terminal) masih dalam tahap penyelesaian.
+            </p>
+            <p>
+              Untuk saat ini, cara paling andal dan sudah terbukti bagus adalah menggunakan versi CLI yang ada di komputer Anda.
+            </p>
+
+            <div className="rounded-2xl bg-zinc-100 p-5 text-sm dark:bg-zinc-800">
+              <div className="mb-2 font-medium text-zinc-900 dark:text-white">Langkah yang bisa Anda lakukan sekarang:</div>
+              <ol className="list-decimal space-y-1 pl-5">
+                <li>Buka Terminal (tekan Command + Spasi, ketik &quot;Terminal&quot;)</li>
+                <li>Ketik perintah berikut lalu tekan Enter:</li>
+              </ol>
+              <div className="mt-3 rounded-xl bg-white p-3 font-mono text-xs dark:bg-zinc-900">
+                cd ~/tools/scribd-dl-personal<br />
+                npm start &quot;https://www.scribd.com/document/403044248/PT-Edelweiss-docx&quot;
+              </div>
             </div>
           </div>
 
           <div className="mt-8 space-y-3">
-            <a
-              href="https://github.com/Scyrptoeth/scribd-dl-desktop"
-              target="_blank"
-              className="block w-full rounded-2xl bg-black py-4 text-center text-lg font-medium text-white hover:bg-zinc-800 active:scale-[0.985] transition"
-            >
-              Unduh Aplikasi Desktop
-            </a>
-
             <button
               onClick={handleCloseGuide}
               className="block w-full rounded-2xl border border-zinc-300 py-4 text-lg font-medium text-zinc-700 hover:bg-zinc-50 active:scale-[0.985] transition dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
-              Kembali
+              Kembali ke halaman utama
             </button>
           </div>
 
           <p className="mt-6 text-center text-xs text-zinc-400">
-            Aplikasi ini berjalan sepenuhnya di komputer Anda dan menggunakan profil Chrome Anda yang sudah login.
+            Setelah selesai, file akan tersimpan di Desktop Anda.
           </p>
         </div>
       </div>
@@ -227,11 +228,11 @@ export default function WebDownload() {
           <div className="text-center text-sm text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 rounded-2xl py-3 px-4">
             {status}
           </div>
-        ) : !isConnected ? (
-          <div className="text-center text-sm text-zinc-500 dark:text-zinc-400 space-y-1">
-            <p>Siap digunakan setelah aplikasi desktop berjalan di komputer ini.</p>
+        ) : (
+          <div className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+            <p>Untuk pengalaman satu klik tanpa Terminal, aplikasi desktop sedang disiapkan.</p>
           </div>
-        ) : null}
+        )}
       </div>
 
       <p className="mt-8 text-center text-[13px] text-zinc-400 dark:text-zinc-500">
