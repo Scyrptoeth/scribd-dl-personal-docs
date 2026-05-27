@@ -74,19 +74,19 @@ export default function SimpleDownloader() {
         {step === 2 && (
           <>
             {/* Step 2: Simple Instructions */}
-            <div className="text-left bg-zinc-50 rounded-3xl p-8 space-y-6">
+            <div className="text-left bg-gray-100 rounded-3xl p-8 space-y-6">
               <div>
                 <div className="text-sm text-zinc-500 mb-1">LANGKAH 1</div>
-                <p className="text-lg">Buka program <strong>Terminal</strong> di komputer kamu.</p>
+                <p className="text-lg">Buka program yang biasa dipakai untuk mengetik perintah di komputer kamu.</p>
                 <p className="text-sm text-zinc-500 mt-1">Cara mudah: Tekan tombol Command + Spasi, ketik "Terminal", lalu tekan Enter.</p>
               </div>
 
               <div>
                 <div className="text-sm text-zinc-500 mb-2">LANGKAH 2</div>
-                <p className="text-lg mb-3">Klik tombol di bawah untuk menyalin tulisan ini, lalu tempel di Terminal dan tekan Enter:</p>
+                <p className="text-lg mb-3">Klik tombol di bawah untuk menyalin tulisan ini, lalu buka program Terminal dan tekan Command + V, lalu tekan Enter:</p>
                 
                 <div className="bg-white border border-zinc-200 rounded-2xl p-4">
-                  <div className="font-mono text-sm break-all bg-zinc-100 p-3 rounded-xl">
+                  <div className="font-mono text-sm break-all bg-white p-3 rounded-xl border border-gray-200">
                     {command}
                   </div>
                   <button

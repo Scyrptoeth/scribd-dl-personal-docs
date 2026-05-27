@@ -21,8 +21,12 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: #111827; /* Good contrast dark text */
   font-family: var(--font-geist-sans);
+}
+
+.dark body {
+  color: #e5e7eb; /* Better contrast for dark mode */
 }
 
 /* Documentation styles */

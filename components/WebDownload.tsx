@@ -1,41 +1,61 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function WebDownload() {
   const [url, setUrl] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('Menghubungkan ke aplikasi pendamping...');
   const [isConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
 
-  // Try to connect to the local desktop app
+  // Auto-connect when component mounts
+  useEffect(() => {
+    connectToDesktopApp();
+
+    // Try reconnecting every 5 seconds if not connected
+    const interval = setInterval(() => {
+      if (!isConnected) {
+        connectToDesktopApp();
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const connectToDesktopApp = () => {
     try {
+      if (ws) ws.close();
+
       const socket = new WebSocket('ws://localhost:3456');
 
       socket.onopen = () => {
         setIsConnected(true);
         setWs(socket);
-        setStatus('Aplikasi pendamping terdeteksi. Siap digunakan.');
+        setStatus('');
       };
 
       socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'status') {
-          setStatus(data.message);
-        }
-        if (data.type === 'success') {
-          setStatus('Download selesai! File tersimpan di Desktop kamu.');
-        }
-        if (data.type === 'error') {
-          setStatus('Error: ' + data.message);
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === 'status') {
+            setStatus(data.message);
+          }
+          if (data.type === 'success') {
+            setStatus('✓ ' + data.message + ' File tersimpan di Desktop.');
+            setUrl(''); // clear input after success
+          }
+          if (data.type === 'error') {
+            setStatus('Gagal: ' + data.message);
+          }
+        } catch (e) {
+          setStatus('Menerima respons dari aplikasi...');
         }
       };
 
       socket.onclose = () => {
         setIsConnected(false);
         setWs(null);
-        setStatus('Aplikasi pendamping tidak berjalan. Silakan jalankan dulu.');
+        setStatus('Aplikasi pendamping tidak ditemukan. Pastikan sudah dijalankan.');
       };
 
       socket.onerror = () => {
@@ -44,13 +64,14 @@ export default function WebDownload() {
       };
     } catch (e) {
       setIsConnected(false);
+      setStatus('Tidak dapat menghubungi aplikasi pendamping.');
     }
   };
 
   const handleDownload = () => {
-    if (!url.trim() || !ws) return;
+    if (!url.trim() || !ws || !isConnected) return;
 
-    setStatus('Mengirim permintaan ke aplikasi...');
+    setStatus('Mengirim permintaan...');
     ws.send(JSON.stringify({
       type: 'download',
       url: url.trim()
@@ -58,36 +79,38 @@ export default function WebDownload() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Unduh Dokumen</h2>
-
-      {!isConnected && (
-        <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl text-sm">
-          Aplikasi pendamping belum berjalan.<br />
-          Jalankan aplikasi desktop terlebih dahulu.
-        </div>
-      )}
+    <div className="max-w-md mx-auto p-6 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+      <h2 className="text-2xl font-semibold mb-2 text-center">Unduh Dokumen</h2>
+      <p className="text-center text-sm text-zinc-500 mb-6">
+        Tempel link dokumen yang ingin kamu simpan
+      </p>
 
       <input
         type="text"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        placeholder="Tempel link dokumen di sini..."
-        className="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-700 rounded-2xl mb-4"
+        placeholder="https://www.scribd.com/..."
+        className="w-full px-4 py-4 text-lg border border-zinc-300 dark:border-zinc-700 rounded-2xl mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <button
-        onClick={isConnected ? handleDownload : connectToDesktopApp}
-        disabled={!url.trim() && isConnected}
-        className="w-full py-4 text-lg font-medium bg-black text-white rounded-2xl disabled:bg-zinc-300 disabled:text-zinc-500 hover:bg-zinc-800 transition"
+        onClick={handleDownload}
+        disabled={!url.trim() || !isConnected}
+        className="w-full py-4 text-lg font-medium bg-black text-white rounded-2xl disabled:bg-zinc-300 disabled:text-zinc-500 hover:bg-zinc-800 active:scale-[0.985] transition"
       >
-        {isConnected ? 'Unduh Sekarang' : 'Hubungkan ke Aplikasi'}
+        {isConnected ? 'Unduh Sekarang' : 'Menghubungkan...'}
       </button>
 
       {status && (
-        <div className="mt-4 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-xl text-sm">
+        <div className="mt-4 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-2xl text-sm text-center">
           {status}
         </div>
+      )}
+
+      {!isConnected && (
+        <p className="mt-4 text-xs text-center text-zinc-500">
+          Pastikan aplikasi pendamping sudah dibuka di komputer kamu.
+        </p>
       )}
     </div>
   );
