@@ -30,6 +30,16 @@ npm run dev
 - TypeScript
 - Tailwind CSS
 
+## Recent Improvements (Desktop App Backend)
+
+The extraction engine (used by the desktop companion) has received major upgrades:
+- Switched to high-quality screenshot-per-page strategy
+- Significantly better page discovery with repeated scrolling
+- Much stronger ad removal (text + density + selector based)
+- Goal: output quality much closer to clean manual exports
+
+These changes are in the shared core and will be available in future desktop app builds.
+
 ## Catatan
 
 Website ini hanya berisi dokumentasi. Tool utama (`scribd-dl-personal`) tetap berjalan secara lokal di mesin Anda.
