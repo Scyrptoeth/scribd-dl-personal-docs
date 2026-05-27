@@ -9,6 +9,7 @@ export default function WebDownload() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [fileName, setFileName] = useState('');
   const [ws, setWs] = useState<WebSocket | null>(null);
+  const [showSetupGuide, setShowSetupGuide] = useState(false);
 
   const connectToLocalApp = useCallback(() => {
     try {
@@ -79,15 +80,24 @@ export default function WebDownload() {
   }, [connectToLocalApp, isConnected]);
 
   const handleDownload = () => {
-    if (!url.trim() || !ws || !isConnected) return;
+    if (!url.trim()) return;
 
-    setStatus('Memproses...');
-    setIsSuccess(false);
+    if (isConnected && ws) {
+      // Ideal path: desktop app is running locally
+      setStatus('Memproses...');
+      setIsSuccess(false);
+      ws.send(JSON.stringify({
+        type: 'download',
+        url: url.trim()
+      }));
+    } else {
+      // On public site (no local desktop) → show beautiful, non-technical guidance
+      setShowSetupGuide(true);
+    }
+  };
 
-    ws.send(JSON.stringify({
-      type: 'download',
-      url: url.trim()
-    }));
+  const handleCloseGuide = () => {
+    setShowSetupGuide(false);
   };
 
   const handleStartOver = () => {
@@ -125,7 +135,63 @@ export default function WebDownload() {
     );
   }
 
-  // Main flow
+  // Setup guide view (shown when user tries to download but has no local desktop app)
+  if (showSetupGuide) {
+    return (
+      <div className="w-full max-w-md mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-semibold tracking-tight mb-3">
+            Siap Mengunduh
+          </h1>
+          <p className="text-lg text-zinc-600">
+            Link sudah diterima. Hanya satu langkah lagi.
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="mb-6">
+            <div className="mb-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">LANGKAH MUDAH</div>
+            <h2 className="text-2xl font-semibold tracking-tight">Instal aplikasi desktop sekali saja</h2>
+          </div>
+
+          <div className="space-y-6 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <div>
+              <span className="font-medium text-zinc-900 dark:text-white">1.</span> Unduh aplikasi desktop Scribd Downloader (gratis, hanya untuk penggunaan pribadi).
+            </div>
+            <div>
+              <span className="font-medium text-zinc-900 dark:text-white">2.</span> Jalankan aplikasi tersebut di komputer Anda.
+            </div>
+            <div>
+              <span className="font-medium text-zinc-900 dark:text-white">3.</span> Kembali ke halaman ini, tempel link lagi, lalu klik Unduh Sekarang.
+            </div>
+          </div>
+
+          <div className="mt-8 space-y-3">
+            <a
+              href="https://github.com/Scyrptoeth/scribd-dl-desktop"
+              target="_blank"
+              className="block w-full rounded-2xl bg-black py-4 text-center text-lg font-medium text-white hover:bg-zinc-800 active:scale-[0.985] transition"
+            >
+              Unduh Aplikasi Desktop
+            </a>
+
+            <button
+              onClick={handleCloseGuide}
+              className="block w-full rounded-2xl border border-zinc-300 py-4 text-lg font-medium text-zinc-700 hover:bg-zinc-50 active:scale-[0.985] transition dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            >
+              Kembali
+            </button>
+          </div>
+
+          <p className="mt-6 text-center text-xs text-zinc-400">
+            Aplikasi ini berjalan sepenuhnya di komputer Anda dan menggunakan profil Chrome Anda yang sudah login.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Main flow (input always usable)
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="text-center mb-8">
@@ -143,20 +209,19 @@ export default function WebDownload() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://www.scribd.com/..."
-          className="w-full px-5 py-4 text-lg border border-zinc-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-zinc-400 disabled:opacity-60 disabled:bg-zinc-50 disabled:border-zinc-200 transition"
-          disabled={!isConnected}
+          className="w-full px-5 py-4 text-lg border border-zinc-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-zinc-400 transition"
         />
 
         <button
           onClick={handleDownload}
-          disabled={!url.trim() || !isConnected}
+          disabled={!url.trim()}
           className="w-full py-4 text-lg font-medium bg-black text-white rounded-2xl disabled:bg-zinc-200 disabled:text-zinc-400 hover:bg-zinc-800 active:scale-[0.985] transition disabled:cursor-not-allowed"
         >
           Unduh Sekarang
         </button>
       </div>
 
-      {/* Status / guidance area - always calm */}
+      {/* Calm status area */}
       <div className="mt-6 min-h-[52px]">
         {status ? (
           <div className="text-center text-sm text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 rounded-2xl py-3 px-4">
@@ -164,8 +229,7 @@ export default function WebDownload() {
           </div>
         ) : !isConnected ? (
           <div className="text-center text-sm text-zinc-500 dark:text-zinc-400 space-y-1">
-            <p>Menunggu aplikasi di komputer ini...</p>
-            <p className="text-xs">Buka aplikasi Scribd Downloader di komputer kamu, lalu tombol akan aktif otomatis.</p>
+            <p>Siap digunakan setelah aplikasi desktop berjalan di komputer ini.</p>
           </div>
         ) : null}
       </div>
