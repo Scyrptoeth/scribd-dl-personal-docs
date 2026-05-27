@@ -8,6 +8,14 @@ export default function Konfigurasi() {
           Anda dapat mengatur perilaku tool melalui file <code>config.ini</code> yang berada di root folder tool.
         </p>
 
+        <h2>Bagian [DIRECTORY] - Lokasi Output</h2>
+        <p>Secara default, hasil unduhan sekarang disimpan di Desktop:</p>
+        <pre className="bg-zinc-100 dark:bg-zinc-900 p-4 rounded-lg text-sm">
+~/Desktop/scribd-dl-output/
+        </pre>
+
+        <p>Anda bisa mengubahnya kapan saja di <code>config.ini</code>:</p>
+
         <h2>Bagian [LOADING] (Paling Penting)</h2>
         <p>Ini adalah konfigurasi yang kami tambahkan untuk meningkatkan keandalan:</p>
 

@@ -20,7 +20,13 @@ npm start "https://www.slideshare.net/username/presentasi-anda"
 
         <h2>Hasil</h2>
         <p>
-          Jika berhasil, file PDF akan tersimpan di folder <code>output/</code> di dalam direktori <code>scribd-dl-personal</code>.
+          Jika berhasil, file PDF akan tersimpan di folder:
+        </p>
+        <pre className="bg-zinc-100 dark:bg-zinc-900 p-4 rounded-lg text-sm">
+~/Desktop/scribd-dl-output/
+        </pre>
+        <p>
+          Lokasi ini bisa diubah melalui file <code>config.ini</code> di bagian <code>[DIRECTORY]</code>.
         </p>
 
         <p className="text-sm text-zinc-500">
