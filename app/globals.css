@@ -22,5 +22,37 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+}
+
+/* Documentation styles */
+.docs-sidebar {
+  border-right: 1px solid #e5e7eb;
+}
+
+.dark .docs-sidebar {
+  border-right-color: #27272a;
+}
+
+.docs-nav-link {
+  transition: all 0.1s ease;
+}
+
+.docs-nav-link:hover {
+  background-color: #f4f4f5;
+}
+
+.dark .docs-nav-link:hover {
+  background-color: #27272a;
+}
+
+.docs-nav-link.active {
+  background-color: #f4f4f5;
+  font-weight: 500;
+  color: #000;
+}
+
+.dark .docs-nav-link.active {
+  background-color: #27272a;
+  color: #fff;
 }
