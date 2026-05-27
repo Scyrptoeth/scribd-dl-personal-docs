@@ -1,22 +1,28 @@
 export default function StrategiLoading() {
   return (
     <div>
-      <h1 className="text-3xl font-semibold tracking-tight mb-8">Strategi Loading</h1>
+      <h1 className="text-3xl font-semibold tracking-tight mb-8">Cara Kerja Tool</h1>
 
       <div className="prose prose-zinc dark:prose-invert max-w-none">
         <p>
-          Tool ini menggunakan sistem <strong>Multi-Strategy Loading</strong> untuk meningkatkan keberhasilan saat mengunduh dokumen berat.
+          Tool ini dirancang untuk menangani dokumen yang berat sekalipun. 
+          Ia akan mencoba beberapa cara berbeda secara otomatis untuk mendapatkan hasil terbaik.
         </p>
 
-        <h2>Urutan Strategi</h2>
-        <ol>
-          <li><strong>Standard</strong> — Strategi cepat dengan timeout 90 detik.</li>
-          <li><strong>Aggressive</strong> — Untuk dokumen sedang hingga berat (3 menit).</li>
-          <li><strong>Recovery</strong> — Strategi terakhir dengan timeout sangat panjang + scroll agresif (5 menit).</li>
-        </ol>
+        <h2>Bagaimana Prosesnya?</h2>
+        <p>
+          Tool akan mencoba membuka halaman dengan cara yang paling cepat terlebih dahulu. 
+          Jika gagal, ia akan mencoba cara yang lebih sabar dan teliti. 
+          Proses ini berjalan otomatis di belakang layar.
+        </p>
 
         <p>
-          Tool akan mencoba strategi secara berurutan. Jika satu strategi gagal, ia akan otomatis mencoba strategi berikutnya (dengan retry).
+          Anda tidak perlu mengatur apapun. Semua sudah dioptimalkan untuk memberikan hasil yang paling andal.
+        </p>
+
+        <h2>Hasilnya?</h2>
+        <p>
+          Dokumen yang Anda minta akan disimpan dalam format PDF yang rapi di Desktop Anda.
         </p>
       </div>
     </div>

@@ -1,40 +1,29 @@
 export default function Konfigurasi() {
   return (
     <div>
-      <h1 className="text-3xl font-semibold tracking-tight mb-8">Konfigurasi</h1>
+      <h1 className="text-3xl font-semibold tracking-tight mb-8">Pengaturan Lanjutan</h1>
 
       <div className="prose prose-zinc dark:prose-invert max-w-none">
         <p>
-          Anda dapat mengatur perilaku tool melalui file <code>config.ini</code> yang berada di root folder tool.
+          Sebagian besar pengguna tidak perlu mengubah apapun. Tool sudah diatur dengan pengaturan terbaik untuk hasil yang andal.
         </p>
 
-        <h2>Bagian [DIRECTORY] - Lokasi Output</h2>
-        <p>Secara default, hasil unduhan sekarang disimpan di Desktop:</p>
+        <h2>Lokasi Hasil Unduhan</h2>
+        <p>
+          Secara default, semua dokumen yang berhasil diunduh akan disimpan di folder:
+        </p>
         <pre className="bg-zinc-100 dark:bg-zinc-900 p-4 rounded-lg text-sm">
 ~/Desktop/scribd-dl-output/
         </pre>
 
-        <p>Anda bisa mengubahnya kapan saja di <code>config.ini</code>:</p>
+        <p>
+          Anda hanya perlu membuka Desktop untuk menemukan hasilnya.
+        </p>
 
-        <h2>Bagian [LOADING] (Paling Penting)</h2>
-        <p>Ini adalah konfigurasi yang kami tambahkan untuk meningkatkan keandalan:</p>
-
-        <pre className="bg-zinc-100 dark:bg-zinc-900 p-4 rounded-lg text-sm overflow-x-auto">
-{`[LOADING]
-standard_timeout=90
-aggressive_timeout=180
-recovery_timeout=300
-retries_per_strategy=1
-use_recovery_strategy=true`}
-        </pre>
-
-        <h3>Penjelasan:</h3>
-        <ul>
-          <li><strong>standard_timeout</strong>: Waktu maksimal untuk strategi pertama (cepat).</li>
-          <li><strong>aggressive_timeout</strong>: Untuk dokumen sedang hingga berat.</li>
-          <li><strong>recovery_timeout</strong>: Strategi terakhir untuk dokumen sangat berat.</li>
-          <li><strong>retries_per_strategy</strong>: Berapa kali mencoba ulang sebelum pindah strategi.</li>
-        </ul>
+        <h2>Butuh Bantuan Lebih Lanjut?</h2>
+        <p>
+          Jika Anda sering mengalami masalah dengan dokumen tertentu, silakan hubungi kami. Kami akan membantu menyesuaikan pengaturan yang tepat untuk Anda.
+        </p>
       </div>
     </div>
   );

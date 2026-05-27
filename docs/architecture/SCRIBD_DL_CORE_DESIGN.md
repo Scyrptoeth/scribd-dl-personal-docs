@@ -23,7 +23,7 @@ Proyek Scribd Downloader saat ini terdiri dari tiga komponen yang berkembang sec
 |---------------------------|----------------------------------|------------|-----------|------------------------------------|-------------|
 | `scribd-dl-personal`      | `tools/scribd-dl-personal/`     | ESM (JS)   | ^19.11.1  | Paling matang                      | CLI-only |
 | `scribd-dl-desktop`       | `tools/scribd-dl-desktop/`      | CJS       | ^22.0.0   | Duplikasi parsial + implementasi lemah | Naive `page.pdf()` |
-| `scribd-dl-personal-docs` | `tools/scribd-dl-personal-docs/`| TS (Next) | -         | Hanya UI                           | CommandGenerator masih mengekspos teknis |
+| `scribd-dl-personal-docs` | `tools/scribd-dl-personal-docs/`| TS (Next) | -         | Hanya UI                           | Sudah dibersihkan (CommandGenerator dihapus dari alur utama) |
 
 ### 1.2 Duplikasi yang Sudah Terjadi
 
